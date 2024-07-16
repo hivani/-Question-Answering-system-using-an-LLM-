@@ -58,8 +58,41 @@ transformers==4.12.3
   # Question Answering
   1. Initialize QA Pipeline
   2. Pass Data to LLM for Answering
-  # User Interface
-  Create a user interface using Streamlit
-  creating a file and naming it as app.py 
-  editing the file with a streamlit code for the front end 
-     
+  # User Interface    
+```python
+# Save the following code in a file named app.py
+
+import streamlit as st
+from sentence_transformers import SentenceTransformer
+import faiss
+import numpy as np
+from transformers import pipeline
+
+# Initialize Sentence Transformer
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Create FAISS index and load data
+# ...
+
+# Initialize QA pipeline
+qa_pipeline = pipeline('question-answering')
+
+# Define Streamlit UI
+def main():
+    st.title('Semantic Search and Question Answering System')
+
+    # Add code for UI components and user interaction
+    # ...
+
+
+if __name__ == "__main__":
+    main()
+```
+
+After creating the `app.py` file, you can run the Streamlit app using the following command in Google Colab:
+```sh
+!streamlit run app.py
+```
+
+Running the Streamlit code will generate a link. You can access the Streamlit app via that link, and it will generate a port number to access this link.
+
