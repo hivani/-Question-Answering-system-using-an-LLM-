@@ -60,33 +60,27 @@ transformers==4.12.3
   2. Pass Data to LLM for Answering
   # User Interface    
 ```python
-# Save the following code in a file named app.py
+st.title('Question Answering System')
 
-import streamlit as st
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
-from transformers import pipeline
+query = st.text_input('Enter your query:')
+if query:
+    expanded_query = expand_query(query)
+    query_embedding = model.encode([expanded_query]).astype('float32')
+    k = 10  # Number of nearest neighbors
+    distances, indices = index.search(query_embedding, k)
+    
+    # Extract results
+    retrieved_chunks = [chunk_texts[i] for i in indices[0]]
+    retrieved_metadata = [metadata[i] for i in indices[0]]
+    
+    # Re-rank the retrieved results
+    reranked_results = util.semantic_search(model.encode(query), model.encode(retrieved_chunks), top_k=10)
+    reranked_chunks = [retrieved_chunks[idx['corpus_id']] for idx in reranked_results[0]]
+    
+    # Display the answer
+    st.header('Answer:')
+    st.write(parsed_content)  # Display the parsed HTML content as the answer
 
-# Initialize Sentence Transformer
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-# Create FAISS index and load data
-# ...
-
-# Initialize QA pipeline
-qa_pipeline = pipeline('question-answering')
-
-# Define Streamlit UI
-def main():
-    st.title('Semantic Search and Question Answering System')
-
-    # Add code for UI components and user interaction
-    # ...
-
-
-if __name__ == "__main__":
-    main()
 ```
 
 After creating the `app.py` file, you can run the Streamlit app using the following command in Google Colab:
