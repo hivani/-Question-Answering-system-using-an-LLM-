@@ -1,4 +1,3 @@
-# -Question-Answering-system-using-an-LLM-
 # Question Answering System
 
 ## Setup Instructions
@@ -13,10 +12,15 @@
     streamlit run app.py
     ```
 
+3. Ensure Milvus is running:
+    ```sh
+    milvus_server start
+    ```
+
 ## Dependencies
 
 - spacy
 - sentence-transformers
-- faiss-cpu
+- pymilvus
 - transformers
 - streamlit
